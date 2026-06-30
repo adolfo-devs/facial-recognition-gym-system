@@ -101,6 +101,7 @@ def seleccionar_usuario_modificar(indice):
                     nuevo_documento = input("Nuevo documento: ")
                     if nuevo_documento.isdigit() and 6 <= len(nuevo_documento) <= 10:
                         seleccionado['documento'] = nuevo_documento
+                        print("==== USUARIO ACTUALIZADO ====")      
                         mostrar_usuario(seleccionado)
                         break
                     else:
@@ -108,17 +109,20 @@ def seleccionar_usuario_modificar(indice):
             elif editar == 2:
                 nuevo_nombre = input("Nuevo nombre: ")
                 seleccionado['nombre'] = nuevo_nombre
+                print("==== USUARIO ACTUALIZADO ====")
                 mostrar_usuario(seleccionado) 
                 
             elif editar == 3:
                 nuevo_apellido = input("Nuevo apellido: ")
                 seleccionado['apellido'] = nuevo_apellido
+                print("==== USUARIO ACTUALIZADO ====")
                 mostrar_usuario(seleccionado)
             else:
                 while True:
                     nuevo_telefono = input("Nuevo telefono: ")
                     if nuevo_telefono.isdigit() and len(nuevo_telefono) == 10:
                         seleccionado['telefono'] = nuevo_telefono
+                        print("==== USUARIO ACTUALIZADO ====")
                         mostrar_usuario(seleccionado)
                         break
                     else:
@@ -129,23 +133,27 @@ def seleccionar_usuario_modificar(indice):
         print("Error: No has ingresado un numero entero")
 
 def mostrar_usuario(usuario):
-    print("==== USUARIO ====")
     print(f"\nDocumento: {usuario['documento']}"
         f"\nNombre: {usuario['nombre']}"
         f"\nApellido: {usuario['apellido']}"
         f"\ntelefono: {usuario['telefono']}")
 
+def mostrar_los_usuarios():
+    for i, usuario in enumerate(usuarios, start = 1):
+        print(f"{i}. Documento: {usuario['documento']} Nombre: {usuario['nombre']} Apellido: {usuario['apellido']} Telefono: {usuario['telefono']}")
+    
 
 
 def eliminar_usuarios():
     if len(usuarios) == 0:
         print("Aun no hay usuarios")
         return
-    
-    for i, usuario in enumerate(usuarios, start = 1):
-        print(f"{i}. Documento: {usuario['documento']} Nombre: {usuario['nombre']} Apellido: {usuario['apellido']} Telefono: {usuario['telefono']}")
-    try:
-        opcion = int(input("Opcion: "))
+    print("==== ELIMINAR USUARIO ====")
+    mostrar_los_usuarios()
+
+    opcion = input("Opcion: ")
+    if opcion.isdigit():
+        opcion = int(opcion)
         if 1 <= opcion <= len(usuarios):
             seleccionado = usuarios[opcion - 1]
             mostrar_usuario(seleccionado)
@@ -153,8 +161,11 @@ def eliminar_usuarios():
             print("¿Seguro que lo eliminaras?")
             print("1. Si")
             print("2. No")
-            try:
-                confirmar = int(input("opcion: "))
+            
+            confirmar = input("opcion: ")
+            if confirmar.isdigit():
+                confirmar = int(confirmar)
+
                 if 1 <= confirmar <= 2:
                     if confirmar == 1:
                         usuarios.pop(opcion - 1)
@@ -166,20 +177,68 @@ def eliminar_usuarios():
                         return
 
                 else:
-                    print("Error: opcion invalida")
-                                
-                        
-            except ValueError:
-                print("Error: opcion invalida")
+                    print("Error: opcion invalida")             
+            else:
+                print("Error: No has ingresado un numero entero")
         else:
             print("Error: opcion invalida")
 
-    except ValueError:
-        print("Error: opcion invalida")
+    else:
+        print("Error: No has ingresado un numero entero")
 
 
         
 def buscar_usuarios():
-    pass
+    if len(usuarios) == 0:
+        print("Aun no hay usuarios")
+        return
+    while True:
+        print("==== BUSCAR USUARIO ====")
+        print("1. Bucar por documento")
+        print("2. Buscar por nombre")
+        print("3. Volver")
+    
+        opcion = input("Opcion: ")
+
+        if opcion.isdigit():
+            opcion = int(opcion)
+            if 1 <= opcion <= 3:
+                if opcion == 1:
+                    buscar_documento_usuario()
+                elif opcion == 2:
+                    buscar_nombre_usuario()
+                elif opcion == 3:
+                    print("Has vuelto...")
+                    return
+            else:
+                print("Error: opcion invalida")
+        else:
+            print("Error: No has ingresado un numero entero")
+
+def buscar_documento_usuario():
+    documento_buscar = input("documento: ")
+
+    for usuario in usuarios:
+        if usuario["documento"] == documento_buscar:
+            print("Usuario encontrado:")
+            mostrar_usuario(usuario)
+            return
+        
+    print("No se ha encontrado el usuario")
+
+def buscar_nombre_usuario():
+    nombre_buscar = input("Nombre: ")
+
+    for usuario in usuarios:
+        if usuario['nombre'] == nombre_buscar:
+            print("Usuario encontrado:")
+            mostrar_usuario(usuario)
+            return
+        
+    print("No se ha encontrado el usuario")
+    
+
+
+    
 def ver_todos_usuarios():
     pass
