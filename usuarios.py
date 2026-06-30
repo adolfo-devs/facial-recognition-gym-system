@@ -129,7 +129,7 @@ def seleccionar_usuario_modificar(indice):
         print("Error: No has ingresado un numero entero")
 
 def mostrar_usuario(usuario):
-    print("==== USUARIO ACTUALIZADO ====")
+    print("==== USUARIO ====")
     print(f"\nDocumento: {usuario['documento']}"
         f"\nNombre: {usuario['nombre']}"
         f"\nApellido: {usuario['apellido']}"
@@ -138,7 +138,47 @@ def mostrar_usuario(usuario):
 
 
 def eliminar_usuarios():
-    pass
+    if len(usuarios) == 0:
+        print("Aun no hay usuarios")
+        return
+    
+    for i, usuario in enumerate(usuarios, start = 1):
+        print(f"{i}. Documento: {usuario['documento']} Nombre: {usuario['nombre']} Apellido: {usuario['apellido']} Telefono: {usuario['telefono']}")
+    try:
+        opcion = int(input("Opcion: "))
+        if 1 <= opcion <= len(usuarios):
+            seleccionado = usuarios[opcion - 1]
+            mostrar_usuario(seleccionado)
+                     
+            print("¿Seguro que lo eliminaras?")
+            print("1. Si")
+            print("2. No")
+            try:
+                confirmar = int(input("opcion: "))
+                if 1 <= confirmar <= 2:
+                    if confirmar == 1:
+                        usuarios.pop(opcion - 1)
+                        print("Se ha eliminado con exito")
+                        return
+                            
+                    elif confirmar == 2:
+                        print("Cancelado")
+                        return
+
+                else:
+                    print("Error: opcion invalida")
+                                
+                        
+            except ValueError:
+                print("Error: opcion invalida")
+        else:
+            print("Error: opcion invalida")
+
+    except ValueError:
+        print("Error: opcion invalida")
+
+
+        
 def buscar_usuarios():
     pass
 def ver_todos_usuarios():
