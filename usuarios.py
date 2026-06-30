@@ -236,9 +236,10 @@ def buscar_nombre_usuario():
             return
         
     print("No se ha encontrado el usuario")
-    
-
-
-    
+        
 def ver_todos_usuarios():
-    pass
+    if len(usuarios) == 0:
+        print("Aun no hay usuarios")
+        return
+    print("==== VER TODOS ====")
+    mostrar_los_usuarios()
