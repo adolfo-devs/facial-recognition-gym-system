@@ -1,4 +1,6 @@
 usuarios = []
+
+# // ====== MENU ===== //
 def menu_usuarios():
     while True:
         print("==== USUARIOS ====")
@@ -32,25 +34,18 @@ def menu_usuarios():
         else: 
             print("Error: No has ingresado un numero entero")
 
+
+# // ===== REGISTRAR ===== //
 def registrar_usuarios():
     usuario = {}
     print("==== REGISTRAR USUARIO ====")
-    while True:
-        documento = input("Documento: ")
-        if documento.isdigit() and 6 <= len(documento) <= 10:
-            break
-        else: 
-            print("Error: Documento invalido")
+    
+    documento = pedir_documento()
 
     nombre = input("Nombre: ")
     apellido = input("Apellido: ")
 
-    while True:
-        telefono = input("Telefono: ")
-        if telefono.isdigit() and len(telefono) == 10:
-            break
-        else:
-            print("Error: Telefono invalido")
+    telefono = pedir_telefono()
 
     usuario["documento"] = documento
     usuario["nombre"] = nombre
@@ -59,13 +54,29 @@ def registrar_usuarios():
             
     usuarios.append(usuario)
 
-    print(f"==== USUARIO AGREGADO ===="
-            f"\nDocumento: {usuario['documento']}"
-            f"\nNombre: {usuario['nombre']}"
-            f"\nApellido: {usuario['apellido']}"
-            f"\nTelefono: {usuario['telefono']}")
-        
+    print(f"==== USUARIO AGREGADO ====")
+    mostrar_usuario(usuario) 
 
+
+def pedir_documento():
+    while True:
+        documento = input("Documento: ")
+        if documento.isdigit() and 6 <= len(documento) <= 10:
+            return documento
+        else: 
+            print("Error: Documento invalido")
+
+
+def pedir_telefono():
+    while True:
+        telefono = input("Telefono: ")
+        if telefono.isdigit() and len(telefono) == 10:
+            return telefono
+        else:
+            print("Error: Telefono invalido")   
+
+        
+# // MODIFICAR //
 def modificar_usuarios():
     while True:
         if len(usuarios) > 0:
@@ -132,18 +143,8 @@ def seleccionar_usuario_modificar(indice):
     else:
         print("Error: No has ingresado un numero entero")
 
-def mostrar_usuario(usuario):
-    print(f"\nDocumento: {usuario['documento']}"
-        f"\nNombre: {usuario['nombre']}"
-        f"\nApellido: {usuario['apellido']}"
-        f"\ntelefono: {usuario['telefono']}")
-
-def mostrar_los_usuarios():
-    for i, usuario in enumerate(usuarios, start = 1):
-        print(f"{i}. Documento: {usuario['documento']} Nombre: {usuario['nombre']} Apellido: {usuario['apellido']} Telefono: {usuario['telefono']}")
     
-
-
+# // ELIMINAR //
 def eliminar_usuarios():
     if len(usuarios) == 0:
         print("Aun no hay usuarios")
@@ -187,7 +188,7 @@ def eliminar_usuarios():
         print("Error: No has ingresado un numero entero")
 
 
-        
+# // BUSCAR //        
 def buscar_usuarios():
     if len(usuarios) == 0:
         print("Aun no hay usuarios")
@@ -236,10 +237,24 @@ def buscar_nombre_usuario():
             return
         
     print("No se ha encontrado el usuario")
-        
+
+
+# // VER TODOS //
 def ver_todos_usuarios():
     if len(usuarios) == 0:
         print("Aun no hay usuarios")
         return
     print("==== VER TODOS ====")
     mostrar_los_usuarios()
+
+
+# // AYUDAS //
+def mostrar_usuario(usuario):
+    print(f"\nDocumento: {usuario['documento']}"
+        f"\nNombre: {usuario['nombre']}"
+        f"\nApellido: {usuario['apellido']}"
+        f"\ntelefono: {usuario['telefono']}")
+
+def mostrar_los_usuarios():
+    for i, usuario in enumerate(usuarios, start = 1):
+        print(f"{i}. Documento: {usuario['documento']} Nombre: {usuario['nombre']} Apellido: {usuario['apellido']} Telefono: {usuario['telefono']}")
